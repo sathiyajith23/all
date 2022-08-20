@@ -1,0 +1,27 @@
+#!/bin/bash
+#docker installation
+sudo yum update -y
+sudo yum install docker -y
+sudo systemctl enable docker
+sudo systemctl start docker
+#Make docker auto-start
+sudo chkconfig docker on
+#Because you always need it....
+sudo yum install -y git
+#Reboot to verify it all loads fine on its own.
+sudo reboot
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+sudo echo "vm.max_map_count = 262144" >> /etc/sysctl.d/99-sysctl.conf
+cd /home/ec2-user
+mkdir sonarqube_server
+sudo chown -R ec2-user:ec2-user sonarqube_server
+cd sonarqube_server
+mkdir -p opt/sonarqube/conf opt/sonarqube/data opt/sonarqube/data opt/sonarqube/lib/bundled-plugins opt/sonarqube/logs var/lib/postgresql var/lib/postgresql/data
+sudo chown -R ec2-user:ec2-user opt/sonarqube/conf opt/sonarqube/data opt/sonarqube/data opt/sonarqube/lib/bundled-plugins opt/sonarqube/logs var/lib/postgresql var/lib/postgresql/data
+cd /usr/local/bin
+git clone https://github.com/sathiyajith23/all.git
+cd /usr/local/bin/all
+cp sonarqube.yml /usr/local/bin
+sudo reboot 
