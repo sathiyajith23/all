@@ -15,7 +15,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 cd /home/ec2-user
 mkdir nexus-data
-sudo chown ec2-user:ec2-user nexus-data
+sudo chown 200:200 nexus-data
 cd /usr/local/bin
 git clone https://github.com/sathiyajith23/all.git
 cd /usr/local/bin/all
